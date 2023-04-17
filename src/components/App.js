@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Box, Button, Paper } from "@mui/material";
+import { Box, Button, Paper, Typography } from "@mui/material";
+import Content from "./Content";
+import RedditIcon from "@mui/icons-material/Reddit";
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -52,7 +54,7 @@ const App = () => {
     <Box
       sx={{
         width: "100vw",
-        height: "100vh",
+        height: "fit-content",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -63,22 +65,76 @@ const App = () => {
       <Paper
         elevation={5}
         sx={{
+          my: "2rem",
           bgcolor: "#E74646",
           width: "80vw",
           height: "10vh",
           borderRadius: "20px",
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
         }}
-      ></Paper>
+      >
+        <Box
+          sx={{
+            width: "40vw",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <RedditIcon
+            sx={{
+              // mt: "0.5rem",
+              color: "white",
+              fontSize: "4rem",
+            }}
+          />
+          <Typography
+            sx={{
+              // mt: "1rem",
+              color: "white",
+            }}
+          >
+            <b>/r/nosleep</b>
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            width: "40vw",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{
+              borderRadius: "20px",
+              width: "15vw",
+            }}
+            onClick={getRandomPost}
+          >
+            <Typography>NEW</Typography>
+          </Button>
+        </Box>
+      </Paper>
 
       <Paper
         elevation={3}
         sx={{
           bgcolor: "#FA9884",
           width: "80vw",
-          height: "70vh",
+          height: "auto",
           borderRadius: "20px",
+          mb: "2rem",
         }}
-      ></Paper>
+      >
+        <Content post={randomPost} />
+      </Paper>
     </Box>
   );
 };
