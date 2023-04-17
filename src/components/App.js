@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Box, Button, Paper } from "@mui/material";
 
 const App = () => {
   const [posts, setPosts] = useState([]);
@@ -48,9 +49,37 @@ const App = () => {
   }, [randomPost]);
 
   return (
-    <div>
-      <button onClick={getRandomPost}>Get Random Post</button>
-    </div>
+    <Box
+      sx={{
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "space-evenly",
+        bgcolor: "#FFE5CA",
+      }}
+    >
+      <Paper
+        elevation={5}
+        sx={{
+          bgcolor: "#E74646",
+          width: "80vw",
+          height: "10vh",
+          borderRadius: "20px",
+        }}
+      ></Paper>
+
+      <Paper
+        elevation={3}
+        sx={{
+          bgcolor: "#FA9884",
+          width: "80vw",
+          height: "70vh",
+          borderRadius: "20px",
+        }}
+      ></Paper>
+    </Box>
   );
 };
 
