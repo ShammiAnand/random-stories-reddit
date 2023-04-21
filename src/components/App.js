@@ -6,9 +6,17 @@ import RedditIcon from "@mui/icons-material/Reddit";
 
 const App = () => {
   const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   // choose one post from the array of posts
-  const [randomPost, setRandomPost] = useState({});
+  const [randomPost, setRandomPost] = useState({
+    author: "Shammi Anand",
+    title: "A Random Reddit Post from /r/nosleep",
+    text: "Click on the NEW button to get a new post",
+    url: "",
+    subreddit: "",
+    created: "4/20/2023",
+  });
 
   const getPostsFromReddit = async () => {
     const res = await axios.get(
@@ -16,7 +24,7 @@ const App = () => {
     );
 
     const data = await res.data.data.children;
-
+    setLoading(false);
     data.forEach((item) => {
       if (item.data.selftext && item.data.selftext !== "") {
         setPosts((posts) => [
@@ -55,6 +63,7 @@ const App = () => {
       sx={{
         width: "100vw",
         height: "fit-content",
+        minHeight: "100vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -117,8 +126,9 @@ const App = () => {
               width: "15vw",
             }}
             onClick={getRandomPost}
+            disabled={loading}
           >
-            <Typography>NEW</Typography>
+            <Typography>{loading ? "Loading..." : "NEW"}</Typography>
           </Button>
         </Box>
       </Paper>
@@ -129,11 +139,12 @@ const App = () => {
           bgcolor: "#FA9884",
           width: "80vw",
           height: "auto",
+          minHeight: "65vh",
           borderRadius: "20px",
           mb: "2rem",
         }}
       >
-        <Content post={randomPost} />
+        <Content post={randomPost} loading={loading} />
       </Paper>
     </Box>
   );
