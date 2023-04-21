@@ -1,6 +1,7 @@
 import { Box, Typography, Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import LinkIcon from "@mui/icons-material/Link";
+import ReactMarkdown from "react-markdown";
 
 function Content({ post }) {
   const [expanded, setExpanded] = useState(false);
@@ -21,7 +22,13 @@ function Content({ post }) {
   };
 
   // Remove links from post.text using regex
-  const cleanText = post.text.replace(/(https?:\/\/[^\s]+)/g, "");
+  const cleanText = post.text.replace(
+    /(https?:\/\/(?:www\.)?[^\s]+\.(?:com|co|in)[^\s]*)(?![^(]*\))/g,
+    ""
+  );
+
+  // Create paragraphs with two consecutive new lines using regex
+  const paragraphs = cleanText.replace(/\n{2,}/g, "\n\n");
 
   return (
     <Box sx={{ px: [2, 3], py: 2 }}>
@@ -65,7 +72,13 @@ function Content({ post }) {
         </Typography>
       </Box>
       <Box sx={{ mb: 2 }}>
-        <Typography>{expanded ? post.text : cleanText}</Typography>
+        <Typography
+          sx={{
+            fontSize: "1.2rem",
+          }}
+        >
+          <ReactMarkdown>{expanded ? cleanText : truncatedText}</ReactMarkdown>
+        </Typography>
       </Box>
       {post.text.split(" ").length > 150 && (
         <Box sx={{ mb: 2 }}>

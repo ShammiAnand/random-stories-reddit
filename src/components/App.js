@@ -20,7 +20,7 @@ const App = () => {
 
   const getPostsFromReddit = async () => {
     const res = await axios.get(
-      "https://www.reddit.com/r/nosleep/.json?&limit=50&raw_json=1"
+      "https://www.reddit.com/r/nosleep/.json?&limit=75&raw_json=1"
     );
 
     const data = await res.data.data.children;
